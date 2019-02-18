@@ -102,6 +102,7 @@ namespace register {
 
 namespace workspace {
   const extStrsProp = "extStrs";
+  const topLevelArgumentsProp = "topLevelArguments";
   const execPathProp = "executablePath";
 
   export const extStrs = (): string => {
@@ -110,6 +111,15 @@ namespace workspace {
       ? ""
       : Object.keys(extStrsObj)
         .map(key => `--ext-str ${key}="${extStrsObj[key]}"`)
+        .join(" ");
+  }
+
+  export const topLevelArguments = (): string => {
+    const topLevelArgumentsObj = vs.workspace.getConfiguration('jsonnet')[topLevelArgumentsProp];
+    return topLevelArgumentsObj == null
+      ? ""
+      : Object.keys(topLevelArgumentsObj)
+        .map(key => `--tla-str ${key}="${topLevelArgumentsObj[key]}"`)
         .join(" ");
   }
 
@@ -352,9 +362,10 @@ namespace jsonnet {
       try {
         // Compile the preview Jsonnet file.
         const extStrs = workspace.extStrs();
+        const topLevelArguments = workspace.topLevelArguments();
         const libPaths = workspace.libPaths();
         const jsonOutput = execSync(
-          `${jsonnet.executable} ${libPaths} ${extStrs} ${codePaths} ${sourceFile}`
+          `${jsonnet.executable} ${libPaths} ${extStrs} ${topLevelArguments} ${codePaths} ${sourceFile}`
         ).toString();
 
         // Cache.
