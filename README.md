@@ -33,6 +33,7 @@ in `settings.json`:
 * `jsonnet.libPaths`: Additional paths to search for libraries when compiling Jsonnet code.
 * `jsonnet.outputFormat`: Preview output format: yaml or json (default is yaml).
 * `jsonnet.extStrs`: External strings to pass to `jsonnet` executable.
+* `jsonnet.topLevelArguments`: Top level arguments to pass to `jsonnet` executable.
 
 This extension exposes the following commands, which can be bound to
 keys:
@@ -53,6 +54,11 @@ keys:
 * `jsonnet.outputFormat`: A choice of two string literals: `["json",
   "yaml"]`. This tells the extension what format you'd like the output
   to be (_i.e._, allows you to either output JSON or YAML).
+* `jsonnet.topLevelArguments`: An object of variable, value pairs. Allows you to
+  customize the top level arguments passed to the `jsonnet` command
+  line. It can be particularly useful to set this in a workspace
+  configuration, so that you can set different arguments on a
+  per-project basis.
 
 [jsonnet]: http://jsonnet.org/ "Jsonnet"
 [jsonnet-demo]: https://raw.githubusercontent.com/heptio/vscode-jsonnet/master/images/kube-demo.gif

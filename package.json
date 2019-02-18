@@ -42,6 +42,11 @@
                         "json",
                         "yaml"
                     ]
+                },
+                "jsonnet.topLevelArguments": {
+                    "default": null,
+                    "description": "Top level arguments to pass to `jsonnet` executable.",
+                    "type": "object"
                 }
             },
             "title": "Jsonnet configuration",
